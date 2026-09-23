@@ -1,0 +1,180 @@
+\documentclass[a4paper, 11pt]{article}
+\input{preamble.tex}
+
+\newcommand{\name}{Pramit Pal}
+\newcommand{\phone}{+91 99026 97222}
+\newcommand{\emailPersonal}{pramit.pal2005@gmail.com}
+\newcommand{\GitHub}{https://github.com/ProAltro}
+
+\linespread{1.03}
+\begin{document}
+\setlist[itemize]{topsep=3pt,partopsep=0pt,parsep=0pt,itemsep=2pt,leftmargin=1.5em}
+
+\begin{center}
+    {\huge \name}\\
+    \vspace{5pt}
+    \small \raisebox{0.0\height}{\small \faPhone}\ {\phone}
+    \hspace{2mm}
+    \href{mailto:\emailPersonal}{\raisebox{0.0\height}{\small \faEnvelope}\ {\emailPersonal}}
+    \hspace{2mm}
+    \href{https://www.linkedin.com/in/pramit-p-8404a4264/}{\raisebox{0.0\height}{\footnotesize \faLinkedin}\ {Pramit}}
+    \hspace{2mm} \href{\GitHub}{\raisebox{0.0\height}{\footnotesize \faGithub}\ {ProAltro}}
+\end{center}
+
+\section{Education}
+\resumeSubHeadingListStart
+\resumeSubheading{Birla Institute of Technology and Science, Pilani}{2023 -- Present}{B.E. Electronics and Communication Engineering}{CGPA: 9.30/10}
+\resumeSubHeadingListEnd
+
+\section{Research and Publications}
+\resumeSubHeadingListStart
+\item {\small\raggedright
+    \textbf{Inverse Design of Realizable Metasurface-Based Absorbers Using Improved Conditioning and Diversity-Enhanced Progressively Growing GANs}\\
+    \textit{Scientific Reports}, Nature Portfolio. Accepted for publication. \href{https://arxiv.org/abs/2606.05849}{arXiv:2606.05849}
+    \begin{itemize}
+        \item Co-authored a generative framework for inverse design of fabrication-aware metasurface absorbers, with continuous FiLM conditioning, electromagnetic-surrogate guidance, and determinantal-point-process diversity regularisation.
+        \item Addressed the challenge of generating geometrically diverse, physically realizable designs that match continuous spectral targets; reported designs span 2--18 GHz.
+        \item Reported evaluation results include 0.0052 average MSE, 0.8730 diversity score, 0.8533 band-alignment accuracy, and an 89.57\% valid-EM-design rate.
+    \end{itemize}
+}
+\resumeSubHeadingListEnd
+
+\section{Experience}
+\resumeSubHeadingListStart
+\resumeProject{D. E. Shaw}{Technology Development Intern, Quant Systems Development}{Jun -- Jul 2026}{}
+\begin{itemize}
+    \item Evaluated identity, firewall access, DNS, proxy routing, and TLS requirements for extending service discovery into a network-restricted domain.
+    \item Developed an eBPF program to integrate a virtual machine's Layer 3 network space into the firm's grid network for userspace testing of network technologies.
+\end{itemize}
+\resumeSubHeadingListEnd
+
+\section{Selected Engineering Projects}
+\resumeSubHeadingListStart
+\Needspace{12\baselineskip}
+\begin{samepage}
+\resumeProject{openEMS-CUDA: Batched GPU Electromagnetic Simulation}{Independent systems and GPU engineering}{2026}{C++, CUDA, Python}
+\begin{itemize}
+    \item Built a CUDA-accelerated batch FDTD engine for running openEMS parameter sweeps and inverse-design simulations, with fused kernels, CUDA Graph replay, and batched port-monitor processing.
+    \item Designed runners and Python orchestration for ragged grid dimensions, independent early stopping, field snapshots, and in-memory simulation batches.
+    \item Validated bit-for-bit E-field parity against the per-simulation GPU engine. A 16-configuration dipole benchmark on an RTX 4050 Laptop GPU reached 15.5 simulations per second; the reported I time-series relative error was at most $2.2\times10^{-7}$.
+    \item Repository: \href{https://github.com/ProAltro/openems-cuda}{github.com/ProAltro/openems-cuda}.
+\end{itemize}
+\end{samepage}
+
+\Needspace{15\baselineskip}
+\begin{samepage}
+\resumeProject{Making Computation Fit: Edge AI and CXL-Backed MoE}{Hardware and systems research}{2026}{SystemVerilog, FPGA, CXL, Python}
+\begin{itemize}
+    \item Developed a streaming power-forecasting pipeline in SystemVerilog combining engineered features, quantized temporal-convolution inference, and a tree ensemble for six forecast horizons.
+    \item Optimised the TCN backbone for a Zynq-7020: Vivado 2019.2 out-of-context synthesis reduced LUTs from 87,430 to 51,506 (41\%) and flip-flops from 199,188 to 65,029 (67\%), using 28 BRAM36 blocks and 48 DSPs. This is synthesis data, not measured board throughput.
+    \item Built reproducible CXL memory-placement and serving experiments for Qwen3-30B-A3B. In simulation, the 56-GiB aggregate model exceeded 48 GiB of aggregate HBM; CXL expansion enabled an 8/8-request run with about 27 GiB per GPU remotely placed.
+    \item Compared against the matched ideal-HBM reference: the simulated CXL run had 27.05$\times$ mean TTFT and 213.05$\times$ mean TPOT. The study distinguishes making a model fit from improving serving performance.
+\end{itemize}
+\end{samepage}
+
+\Needspace{9\baselineskip}
+\begin{samepage}
+\resumeProject{Nebula GPU Interconnect Design Competition}{Second Place, Hardware Design}{Aug -- Sep 2025}{SystemVerilog, NoC}
+\begin{itemize}
+    \item Designed a network-on-chip for up to 64 GPUs with custom deadlock-free arbitration and AXI/CHI-compatible interconnect modules.
+    \item Built SystemVerilog test benches for traffic patterns representative of shared GPU-training workloads; placed second in the hardware-design category of the Astera Labs Nebula competition.
+\end{itemize}
+\end{samepage}
+
+\Needspace{12\baselineskip}
+\begin{samepage}
+\resumeProject{Team Anant Satellite Simulation (sat-sim)}{Satellite Systems Engineering}{2025 -- 2026}{Python, orbital dynamics}
+\begin{itemize}
+    \item Contributed to Team Anant's orbit-propagation and spacecraft-analysis sandbox, refactoring the propagator into a more modular simulation architecture.
+    \item Developed solar-power analysis and Monte Carlo analysis workflows; contributed to telemetry, tracking, and command (TT\&C) link/contact analysis and magnetorquer detumbling features.
+    \item The simulator models orbital perturbations and spacecraft subsystems, with monitors for power generation, ground-station contact, link margin, and attitude behavior.
+    \item Repository: \href{https://github.com/team-anant/sat-sim}{github.com/team-anant/sat-sim}.
+\end{itemize}
+\end{samepage}
+
+\Needspace{10\baselineskip}
+\begin{samepage}
+\resumeProject{Gradient-Based Antenna Array Optimisation}{Research project}{Aug -- Dec 2025}{PyTorch, EM solvers}
+\begin{itemize}
+    \item Developed gradient-based optimisation using array-factor models to improve antenna-array gain, beam-steering performance, and efficiency by combining physics-based modelling with deep-learning methods.
+    \item Explored spiral-array wireless-power transfer, hexagonal-array directivity maximisation, and grid-array beam steering; compared gradient-based optimisation with differential evolution, genetic algorithms, and particle swarm optimisation.
+    \item Repository: \href{https://github.com/ProAltro/Gradient-Based-Antenna-Array-Optimisation}{GitHub project}.
+\end{itemize}
+\end{samepage}
+
+\Needspace{9\baselineskip}
+\begin{samepage}
+\resumeProject{Algorithmic Trading Competition Platform}{Tech-fest competition backend}{Mar -- Apr 2026}{Go, Python, Protocol Buffers}
+\begin{itemize}
+    \item Built a competition backend that handled more than 200 player strategies concurrently at a one-second market tick.
+    \item Implemented the Go order book and matching engine, concurrent strategy evaluation, and a Protocol Buffers interface to Python strategies.
+    \item Repository: \href{https://github.com/ProAltro/algo-trading-platform}{GitHub project}.
+\end{itemize}
+\end{samepage}
+
+\Needspace{10\baselineskip}
+\begin{samepage}
+\resumeProject{Micromouse}{Personal robotics project}{ }{Raspberry Pi Pico W, MicroPython, BLE}
+\begin{itemize}
+    \item Built a maze-solving robot with motor encoder feedback, an MPU6050 IMU, and three ultrasonic distance sensors.
+    \item Developed MicroPython firmware and a Python BLE client for monitoring sensor readings, sending commands, tuning navigation parameters, and transferring JSON logs.
+    \item Repository: \href{https://github.com/ProAltro/micromouse}{github.com/ProAltro/micromouse}.
+\end{itemize}
+\end{samepage}
+
+\Needspace{9\baselineskip}
+\begin{samepage}
+\resumeProject{Huffzip}{Personal compression project}{}{C++}
+\begin{itemize}
+    \item Implemented a file compression and decompression tool combining optional LZ77 precompression with Huffman coding.
+    \item Designed a compact format with CRC-32 integrity checks and verbose coding statistics.
+    \item Repository: \href{https://github.com/ProAltro/huffzip}{github.com/ProAltro/huffzip}.
+\end{itemize}
+\end{samepage}
+
+\newpage
+\Needspace{10\baselineskip}
+\begin{samepage}
+\resumeProject{Additional DSP and Platform Projects}{Selected course, club, and event work}{2023 -- 2026}{Python, Go, Next.js}
+\begin{itemize}
+    \item Co-developed an audio watermarking system using chaotic encryption, three-level Haar DWT, and DTMT; refactored embedding/extraction modules and tests. On the tested track, watermark correlation was 0.993 under 20 dB Gaussian noise and 0.998 after 128 kbps MP3, with marked sensitivity to time scaling. \href{https://github.com/Meghadri25/dsp-project}{Project}.
+    \item Built a Go/Gin/SQLC authentication service for the BITS Postman recruitment platform, including Google OAuth sessions, token verification, logout, and club-head login.
+    \item Developed Team Anant's website and contributed to its internal Flask ERP for project, inventory, finance, and user/role management workflows.
+    \item Built the BITS Pilani Qiskit Fall Fest 2026 website around the official programme: 8 days, 16 sessions, and 27 taught hours, with interactive and responsive presentation.
+\end{itemize}
+\end{samepage}
+\resumeSubHeadingListEnd
+
+\section{Leadership and Campus Involvement}
+\resumeSubHeadingListStart
+\resumePOR{Systems Engineer}{Team Anant, BITS Pilani satellite club}{May 2024 -- Present}
+\begin{itemize}
+    \item Coordinate subsystem interfaces for a 3U CubeSat mission.
+    \item Work across TT\&C link budgets and modulation schemes, power budgeting, OBC state transitions, and ADCS state estimation with Kalman filtering; consider magnetorquer actuation and payload constraints in mission design.
+\end{itemize}
+\resumePOR{Cultural Fest Coordinator}{Matrix, The Film and Literature Club}{May -- Dec 2025}
+\begin{itemize}
+    \item Organised the book fair and ran film screenings and quizzes as part of the cultural fest.
+\end{itemize}
+\item IEEE BPSC (AI/ML Vertical); Coding Club (competitive programming); The Debating Society.
+\resumeSubHeadingListEnd
+
+\section{Technical Skills}
+\resumeSkillsListStart
+    \resumeSkill{Programming}{Go, Python, C++, SystemVerilog}
+    \resumeSkill{Systems}{Linux, networking, eBPF, concurrency, Protocol Buffers}
+    \resumeSkill{Hardware}{RTL design, NoC and GPU interconnects}
+    \resumeSkill{Machine Learning and Optimisation}{PyTorch, GANs, diffusion models, gradient-based optimisation}
+\resumeSkillsListEnd
+
+\section{Selected Coursework}
+\resumeSubHeadingListStart
+\item Taken beyond my core discipline out of interest: Deep Learning; Quantum Informatics and Computing; Special Relativity; Group Theory; Topology; Cryptography.
+\resumeSubHeadingListEnd
+
+\section{Additional Information}
+\resumeSubHeadingListStart
+\item \textbf{Career update:} Placement offer from Graviton Research Capital.
+\resumeSubHeadingListEnd
+
+\end{document}

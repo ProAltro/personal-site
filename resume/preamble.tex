@@ -1,0 +1,85 @@
+% --- Required Packages ---
+\usepackage{latexsym}
+\usepackage{tfrupee}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{multicol}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{needspace}
+\usepackage[most]{tcolorbox}
+\input{glyphtounicode}
+
+% --- Page Layout & Formatting ---
+\setlength{\multicolsep}{-3.0pt}
+\setlength{\columnsep}{-1pt}
+\geometry{left=1.3cm, top=8mm, right=1.3cm, bottom=6mm}
+\urlstyle{same}
+\setlength{\footskip}{4.08003pt}
+
+% --- Section Title Format ---
+\titleformat{\section}{
+	\vspace{-2pt}\scshape\large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-4pt}]	
+
+% --- TColorBox Settings (if used) ---
+\tcbset{
+	frame code={},
+	center title,
+	left=0pt,
+	right=0pt,
+	top=0pt,
+	bottom=0pt,
+	colback=gray!20,
+	colframe=white,
+	width=\dimexpr\textwidth\relax,
+	enlarge left by=-2mm,
+	boxsep=4pt,
+	arc=0pt,outer arc=0pt,
+}
+
+% --- Custom Commands for Resume Sections ---
+\newcommand{\resumeSubheading}[4]{ 
+	\vspace{-2pt}\item
+	\begin{tabular*}{1.0\textwidth}[t]{@{}l@{\extracolsep{\fill}}r@{}}
+		\textbf{#1} & \textbf{\small #2} \\
+		\textit{\small#3} & \text{\small #4} \\
+	\end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSkill}[2]{\item \textbf{#1:} #2}
+
+\newcommand{\resumeProject}[4]{
+	\vspace{0.5mm}\item
+	\begin{tabular*}{0.98\textwidth}[t]{@{}l@{\extracolsep{\fill}}r@{}}
+		\textbf{#1} & \textit{\footnotesize{#3}} \\
+		\footnotesize{\textit{#2}} & \footnotesize{#4}
+	\end{tabular*}
+	\vspace{-1.2mm}
+}
+
+\newcommand{\resumePOR}[3]{
+	\vspace{0.5mm}\item
+	\begin{tabular*}{0.97\textwidth}[t]{@{}l@{\extracolsep{\fill}}r@{}}
+		\textbf{#1} - #2 & \textit{\small{#3}} 
+	\end{tabular*}
+	\vspace{-1mm}
+}
+
+% --- Custom List Environments ---
+\newcommand{\resumeItemListStart}{\begin{justify}\begin{itemize}[leftmargin=3ex, rightmargin=2ex, noitemsep,labelsep=1.2mm,itemsep=0mm]\setlength\itemsep{1px}\small}
+\newcommand{\resumeItemListEnd}{\end{itemize}\end{justify}\vspace{-1mm}}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}, topsep=1pt, itemsep=1pt, parsep=0pt, partopsep=0pt]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeSkillsListStart}{\begin{itemize}[leftmargin=0.15in, label={}, topsep=1pt, itemsep=1pt, parsep=0pt, partopsep=0pt]}
+\newcommand{\resumeSkillsListEnd}{\end{itemize}}

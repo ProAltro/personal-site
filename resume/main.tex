@@ -1,0 +1,88 @@
+\documentclass[a4paper, 11px]{article}
+\include{preamble.tex}
+\newcommand{\name}{Pramit Pal}
+\newcommand{\course}{B.E. Electronics and Communications}
+\newcommand{\phone}{+91 99026 97222}
+\newcommand{\emailWork}{f20230765@pilani.bits-pilani.ac.in}
+\newcommand{\emailPersonal}{pramit.pal2005@gmail.com}
+\newcommand{\university}{Birla Institute of Technology and Science}
+\newcommand{\GitHub}{https://github.com/ProAltro}
+\linespread{1}
+\begin{document}
+\setlist[itemize,2]{topsep=2pt,partopsep=0pt,parsep=0pt,itemsep=2pt}
+\begin{center}
+    {\huge \name}\\
+    \vspace{5pt}
+    \small \raisebox{0.0\height}{\small \faPhone}\ {\phone}
+    \hspace{2mm} 
+    \href{mailto: \emailPersonal}{\raisebox{0.0\height}{\small \faEnvelope}\ {\emailPersonal}}
+    \hspace{2mm} 
+    \href{https://www.linkedin.com/in/pramit-p-8404a4264/}{\raisebox{0.0\height}{\footnotesize \faLinkedin}\ {Pramit}} 
+    \hspace{2mm} \href{\GitHub}{\raisebox{0.0\height}{\footnotesize \faGithub}\ {ProAltro}}
+\end{center}
+\section{Education}
+\resumeSubHeadingListStart
+\resumeSubheading{Birla Institute of Technology and Science}{2023 - Current}{B.E. Electronics and Communication Engineering}{CGPA: 9.30/10}
+\resumeSubHeadingListEnd
+\section{Technical Skills}
+\resumeSkillsListStart
+    \resumeSkill{Programming}{Go, Python, C++, SystemVerilog}
+    \resumeSkill{Systems}{Linux, Networking, eBPF, Concurrency, Protobuf}
+    \resumeSkill{Hardware}{RTL Design, NoC / GPU Interconnects}
+    \resumeSkill{ML / Optimization}{PyTorch, GANs, Diffusion Models, Gradient-Based Optimization}
+\resumeSkillsListEnd
+\section{Publications}
+\resumeSubHeadingListStart
+\item {\small\raggedright
+    \textbf{Inverse Design of Realizable Metasurface-Based Absorbers Using Improved Conditioning and Diversity-Enhanced Progressively Growing GANs}\par
+    \textit{Scientific Reports} (Nature Portfolio), \textbf{accepted for publication} \textbar\ \href{https://arxiv.org/abs/2606.05849}{arXiv:2606.05849}
+    \begin{itemize}
+        \item Co-authored a GAN framework for inverse design of fabrication-aware metasurface absorbers using continuous FiLM conditioning, EM surrogate guidance, and DPP diversity regularization.
+    \end{itemize}
+}
+\resumeSubHeadingListEnd
+\section{Experience}
+\resumeSubHeadingListStart
+\resumeProject{D. E. Shaw}{Technology Development Intern, Quant Systems Dev}{Jun - Jul, 2026}{}
+\begin{itemize}
+    \item Worked on extending service discovery into a network-restricted domain, evaluating \textbf{identity}, firewall access, \textbf{DNS}, proxy routing, and TLS requirements for infrastructure expansion.
+    \item Developed an eBPF program to integrate a VM's L3 network space into the firm's grid network to enable userspace testing of network technologies
+\end{itemize}
+\resumeSubHeadingListEnd
+\section{Competitions}
+\resumeSubHeadingListStart
+\resumeProject{Nebula: Astera Labs - GPU Interconnect Design Competition}{Second Place, Hardware Design, SystemVerilog}{Aug. 2025 - Sep. 2025}{}
+\begin{itemize}
+\item Designed and implemented a scalable GPU interconnect \textbf{NoC} (for up to 64 GPUs), featuring a custom \textbf{deadlock-free arbitration scheme} and AXI/CHI-compatible interconnect modules for high-bandwidth communication.
+\item Built SystemVerilog test benches to benchmark the NoC under traffic patterns common to \textbf{shared GPU training} workloads.
+\end{itemize}
+\resumeSubHeadingListEnd
+\section{Projects}
+\resumeSubHeadingListStart
+\resumeProject{Gradient Based Antenna Array Optimization using Array Factor Model}{Research Project}{Aug 2025 - Dec 2025}{PyTorch, EM Solvers}
+\begin{itemize}
+\item Developed a gradient based approach on array factor models for optimizing \textbf{gain, beam-steering performance} and \textbf{efficiency} of antenna arrays, incorporating physics based models with traditional deep learning algorithms.
+\end{itemize}
+\resumeProject{Algo Trading Competition Platform}{Tech Fest Competition Backend}{Mar 2026 - Apr 2026}{Go, Python}
+\begin{itemize}
+\item Built the competition backend, handling \textbf{200+ player strategies simultaneously} at a \textbf{1-second tick rate} during the college tech fest's algo trading competition.
+\item Implemented Go order-book and matching logic with concurrent strategy evaluation, plus a protobuf interface to Python strategies.
+\end{itemize}
+\resumeSubHeadingListEnd
+\section{Positions of Responsibility}
+\resumeSubHeadingListStart
+\resumePOR{System Engineer}{Team Anant, Student Satellite Team}{May 2024 - Current}
+\begin{itemize}
+\item Coordinating subsystem interfaces for a \textbf{3U CubeSat} mission as part of the student satellite team.
+\item Working on ADCS and mission design considerations, including Kalman-filter state estimation, magnetorquer actuation, payload constraints, and TT\&C antenna requirements.
+\end{itemize}
+\resumePOR{Cultural Fest Coordinator}{Matrix, The Film and Literature Club}{May 2025 - Dec 2025}
+\begin{itemize}
+\item Organized the book fair for the fest and held events like movie screenings and quizzes.
+\end{itemize}
+\resumeSubHeadingListEnd
+\section{Extracurriculars}
+\resumeSubHeadingListStart
+\item IEEE BPSC (AI/ML Vertical) \quad Coding Club (Competitive Programming) \quad The Debating Society
+\resumeSubHeadingListEnd
+\end{document}
