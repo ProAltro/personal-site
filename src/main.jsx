@@ -362,7 +362,118 @@ function AntennaPattern({ steering }) {
   );
 }
 
+function useReducedMotion() {
+  const [reducedMotion, setReducedMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updateMotion = () => setReducedMotion(media.matches);
+    media.addEventListener('change', updateMotion);
+    return () => media.removeEventListener('change', updateMotion);
+  }, []);
+
+  return reducedMotion;
+}
+
+function OrbitDrawing() {
+  const reducedMotion = useReducedMotion();
+  const orbitPath = 'M256.51 50.39 A112 49 -18 0 1 43.49 119.61 A112 49 -18 0 1 256.51 50.39';
+
+  return (
+    <svg class="project-drawing orbit-drawing" viewBox="0 0 300 170" role="img" aria-label="Satellite moving along an orbital path around Earth">
+      <path class="orbit-track" d={orbitPath} />
+      <circle cx="150" cy="85" r="34" fill="#dce6ff" stroke="#20203a" stroke-width="2" />
+      <path d="M119 85h62M150 54v62" stroke="#3549d4" stroke-width="1.5" opacity=".65" />
+      <g class="orbit-satellite" transform={reducedMotion ? 'translate(256.51 50.39)' : undefined}>
+        <circle cx="0" cy="0" r="7" fill="#f06943" stroke="#20203a" stroke-width="2" />
+        <path d="M-8 0h-10m26 0h10m-10-8v-9m0 34v-9" stroke="#20203a" stroke-width="2" />
+        {!reducedMotion && <animateMotion dur="12s" repeatCount="indefinite" path={orbitPath} />}
+      </g>
+      <text x="109" y="160">ORBIT / POWER / TT&amp;C</text>
+    </svg>
+  );
+}
+
+const restingAsks = [
+  { price: 101, width: 36 },
+  { price: 102, width: 120 },
+  { price: 103, width: 77 },
+  { price: 104, width: 104 },
+];
+const bids = [
+  { price: 98, width: 125 },
+  { price: 97, width: 94 },
+  { price: 96, width: 111 },
+  { price: 95, width: 69 },
+];
+const tradingSteps = ['RESTING BOOK', 'BUY 1 @ $101 ARRIVES', 'FILLED 1 @ $101', 'BEST ASK NOW $102', 'NEW SELL 1 @ $101'];
+
+function TradingDrawing() {
+  const reducedMotion = useReducedMotion();
+  const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    if (reducedMotion) {
+      setStep(0);
+      return;
+    }
+    const interval = window.setInterval(() => setStep((current) => (current + 1) % tradingSteps.length), 1600);
+    return () => window.clearInterval(interval);
+  }, [reducedMotion]);
+
+  const asks = step < 2 || step === 4 ? restingAsks : [...restingAsks.slice(1), { price: 105, width: 74 }];
+
+  return (
+    <svg class="project-drawing trading-drawing" viewBox="0 0 300 170" role="img" aria-label={`Illustrative order book: ${tradingSteps[step].toLowerCase()}`}>
+      <text x="20" y="27">BUY ORDERS</text><text x="197" y="27">SELL ORDERS</text>
+      {bids.map((bid, row) => <g key={bid.price}>
+        <rect class="bid-depth" x="20" y={43 + row * 26} width={bid.width} height="15" rx="3" />
+        <text x="22" y={55 + row * 26}>$ {bid.price}.0</text>
+      </g>)}
+      {asks.map((ask, row) => <g key={ask.price}>
+        <rect class="ask-depth" x="155" y={43 + row * 26} width={ask.width} height="15" rx="3" />
+        <text x="253" y={55 + row * 26}>$ {ask.price}.0</text>
+      </g>)}
+      <path class="match-line" d="M150 38V140" />
+      {(step === 1 || step === 2) && <circle class="match-dot" cx="150" cy="50" r={step === 2 ? 7 : 4} />}
+      <text class="trade-status" x="20" y="160">{tradingSteps[step]}</text>
+    </svg>
+  );
+}
+
+const networkRoutes = [
+  'M58 132H150V85H242V38',
+  'M58 132V85H150V38H242',
+];
+
+function InterconnectDrawing() {
+  const reducedMotion = useReducedMotion();
+  const [route, setRoute] = useState(0);
+
+  useEffect(() => {
+    if (reducedMotion) {
+      setRoute(0);
+      return;
+    }
+    const interval = window.setInterval(() => setRoute((current) => (current + 1) % networkRoutes.length), 4000);
+    return () => window.clearInterval(interval);
+  }, [reducedMotion]);
+
+  return (
+    <svg class="project-drawing noc-drawing" viewBox="0 0 300 170" role="img" aria-label={`Network-on-chip packet following route ${route === 0 ? 'A' : 'B'}`}>
+      <path class="noc-links" d="M58 38H150H242 M58 85H150H242 M58 132H150H242 M58 38V85V132 M150 38V85V132 M242 38V85V132" />
+      <path class="noc-route" d={networkRoutes[route]} />
+      {[58, 150, 242].flatMap((x) => [38, 85, 132].map((y) => <circle key={`${x}-${y}`} class="noc-node" cx={x} cy={y} r="9" />))}
+      <circle class="route-packet" cx={reducedMotion ? 58 : 0} cy={reducedMotion ? 132 : 0} r="5">
+        {!reducedMotion && <animateMotion key={route} dur="3.2s" fill="freeze" path={networkRoutes[route]} />}
+      </circle>
+      <text x="18" y="160">PACKET ROUTE {route === 0 ? 'A' : 'B'} / NO DEAD ENDS</text>
+    </svg>
+  );
+}
+
 function ProjectDrawing({ kind }) {
+
   if (kind === 'compute') {
     return (
       <svg class="project-drawing compute-drawing" viewBox="0 0 300 170" role="img" aria-label="A small FPGA chip connected to memory tiers and model data">
@@ -379,18 +490,7 @@ function ProjectDrawing({ kind }) {
       </svg>
     );
   }
-  if (kind === 'orbit') {
-    return (
-      <svg class="project-drawing orbit-drawing" viewBox="0 0 300 170" role="img" aria-label="Satellite travelling along an orbital path around Earth">
-        <ellipse cx="150" cy="85" rx="112" ry="49" fill="none" stroke="#3549d4" stroke-width="2" stroke-dasharray="5 6" transform="rotate(-18 150 85)" />
-        <circle cx="150" cy="85" r="34" fill="#dce6ff" stroke="#20203a" stroke-width="2" />
-        <path d="M119 85h62M150 54v62" stroke="#3549d4" stroke-width="1.5" opacity=".65" />
-        <circle cx="230" cy="42" r="7" fill="#f06943" stroke="#20203a" stroke-width="2" />
-        <path d="M222 42h-10m36 0h-10m-8-8v-9m0 34v-9" stroke="#20203a" stroke-width="2" />
-        <text x="109" y="137">ORBIT / POWER / TT&amp;C</text>
-      </svg>
-    );
-  }
+  if (kind === 'orbit') return <OrbitDrawing />;
   if (kind === 'meta') {
     return (
       <svg class="project-drawing meta-drawing" viewBox="0 0 300 170" role="img" aria-label="Concept diagram of a patterned metasurface absorbing waves">
@@ -403,8 +503,8 @@ function ProjectDrawing({ kind }) {
             return <rect key={index} x={x} y={y} width="12" height="12" rx="3" transform={`rotate(${(index % 3) * 15} ${x + 6} ${y + 6})`} />;
           })}
         </g>
-        <text x="17" y="112">incoming waves</text><text x="166" y="112">designed surface</text>
-        <path class="quiet-wave" d="M184 133Q204 126 224 133T264 133" />
+        <text x="17" y="125">incoming waves</text><text x="166" y="125">designed surface</text>
+        <path class="quiet-wave" d="M184 151Q204 144 224 151T264 151" />
       </svg>
     );
   }
@@ -423,28 +523,8 @@ function ProjectDrawing({ kind }) {
     );
   }
   if (kind === 'antenna') return <AntennaPattern steering={24} />;
-  if (kind === 'trading') {
-    return (
-      <svg class="project-drawing trading-drawing" viewBox="0 0 300 170" role="img" aria-label="Illustrative order book with matching buy and sell orders">
-        <text x="20" y="27">BUY ORDERS</text><text x="197" y="27">SELL ORDERS</text>
-        {[0, 1, 2, 3].map((row) => <g key={row}>
-          <rect class="bid-depth" x="20" y={43 + row * 26} width={[125, 94, 111, 69][row]} height="15" rx="3" />
-          <rect class="ask-depth" x="155" y={43 + row * 26} width={[92, 120, 77, 104][row]} height="15" rx="3" />
-          <text x="22" y={55 + row * 26}>$ {98 - row}.0</text><text x="253" y={55 + row * 26}>$ {101 + row}.0</text>
-        </g>)}
-        <path class="match-line" d="M148 38V149" />
-        <circle class="match-dot" cx="150" cy="76" r="6" />
-      </svg>
-    );
-  }
-  return (
-    <svg class="project-drawing noc-drawing" viewBox="0 0 300 170" role="img" aria-label="Network-on-chip diagram with a highlighted packet route">
-      <path class="noc-links" d="M58 38H150H242 M58 85H150H242 M58 132H150H242 M58 38V85V132 M150 38V85V132 M242 38V85V132" />
-      <path class="noc-route" d="M58 132H150V85H242V38" />
-      {[58, 150, 242].flatMap((x) => [38, 85, 132].map((y) => <circle key={`${x}-${y}`} class="noc-node" cx={x} cy={y} r="9" />))}
-      <text x="18" y="160">PACKET ROUTE, NO DEAD ENDS</text>
-    </svg>
-  );
+  if (kind === 'trading') return <TradingDrawing />;
+  return <InterconnectDrawing />;
 }
 
 function ProjectCard({ project, onOpen }) {
