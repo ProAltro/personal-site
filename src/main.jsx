@@ -6,12 +6,12 @@ const projects = [
   {
     id: 'metasurface',
     number: '01',
-    eyebrow: 'A RESEARCH SIDE QUEST',
-    title: 'A paper accepted in Scientific Reports',
+    eyebrow: 'RESEARCH / PUBLICATION',
+    title: 'Inverse design of metasurface absorbers',
     highlightTitle: 'Scientific Reports',
-    highlightNote: 'Nature Portfolio · paper accepted',
-    short: 'What if a neural net could imagine a material that absorbs just the right waves?',
-    proof: 'NATURE PORTFOLIO · ACCEPTED',
+    highlightNote: 'Published in Scientific Reports, 2026',
+    short: 'A generative model for designing physically realizable absorbers against continuous electromagnetic targets.',
+    proof: 'NATURE PORTFOLIO / PUBLISHED',
     featured: true,
     categories: ['machine learning', 'electromagnetics'],
     palette: 'peach',
@@ -21,31 +21,31 @@ const projects = [
     sections: [
       { label: 'THE BOTTLENECK', title: 'A good spectrum is only half the answer', body: 'Inverse design is expensive when each candidate needs iterative full-wave simulation. Generative approaches also have to obey continuous spectral targets without collapsing to near-identical shapes or producing designs that cannot be fabricated.' },
       { label: 'THE APPROACH', title: 'Condition the generator; keep physics in the loop', body: 'The framework uses a progressively growing Wasserstein GAN with gradient penalty. FiLM conditioning carries continuous spectral and fabrication constraints through the model; a surrogate-assisted spectral-alignment loss encourages electromagnetic consistency, while determinantal-point-process regularisation encourages diverse geometries for the same target.' },
-      { label: 'WHAT CAME OUT', title: 'Different geometries, similar target behavior', body: 'The paper reports realizable absorber designs across 2–18 GHz, validated with electromagnetic simulations. The reported average MSE is 0.0052, diversity score 0.8730, band-alignment accuracy 0.8533, and valid-EM-design rate 89.57%.' },
+      { label: 'WHAT CAME OUT', title: 'Different geometries, similar target behavior', body: 'The paper reports realizable absorber designs across 2-18 GHz, validated with electromagnetic simulations. The reported average MSE is 0.0052, diversity score 0.8730, band-alignment accuracy 0.8533, and valid-EM-design rate 89.57%.' },
     ],
     contribution: 'Worked on the model and conditioning approach, with design diversity and physical realizability as first-class constraints.',
-    outcome: 'Accepted for publication in Scientific Reports, part of the Nature Portfolio.',
+    outcome: 'Published in Scientific Reports, part of the Nature Portfolio.',
     stack: ['GANs', 'PyTorch', 'FiLM conditioning', 'EM surrogates', 'DPP regularisation'],
-    stats: [{ value: '89.57%', label: 'valid EM designs' }, { value: '0.873', label: 'diversity score' }, { value: '2–18 GHz', label: 'design band' }],
-    link: { label: 'Read the paper', href: 'https://arxiv.org/abs/2606.05849' },
+    stats: [{ value: '89.57%', label: 'valid EM designs' }, { value: '0.873', label: 'diversity score' }, { value: '2-18 GHz', label: 'design band' }],
+    link: { label: 'Read the paper', href: 'https://doi.org/10.1038/s41598-026-69259-y' },
   },
   {
     id: 'openems-cuda',
     number: '02',
     eyebrow: 'GPU ELECTROMAGNETICS / 2026',
-    title: 'Can CUDA batch simulations without losing accuracy?',
+    title: 'Batched GPU electromagnetic simulation',
     short: 'An openEMS FDTD extension that batches parameter sweeps on the GPU, with parity checks against the reference engine.',
-    proof: '15.5 SIMULATIONS / SEC · RTX 4050 BENCH',
+    proof: '15.5 SIMULATIONS / SEC - RTX 4050 BENCH',
     featured: true,
     categories: ['systems', 'hardware'],
     palette: 'violet',
     kind: 'cuda',
-    curiosity: 'A CUDA-accelerated batch FDTD engine for openEMS parameter sweeps and inverse-design loops.',
-    details: 'I’m extending openEMS with fused batched FDTD kernels, CUDA Graph replay, and batched port-monitor processing. The aim is to make large electromagnetic parameter sweeps practical without changing the familiar Python-facing workflow.',
+    curiosity: 'I built a batched CUDA FDTD engine for openEMS parameter sweeps. FDTD updates electromagnetic fields over a grid; batching advances multiple configurations together, reducing repeated launch overhead while keeping results consistent with the reference GPU engine.',
+    details: 'I am extending openEMS with fused batched FDTD kernels, CUDA Graph replay, and batched port-monitor processing. The goal is to run large electromagnetic parameter sweeps more efficiently while keeping the existing Python-facing workflow.',
     sections: [
       { label: 'THE PROBLEM', title: 'Parameter sweeps multiply small simulation costs', body: 'Electromagnetic inverse-design loops need to evaluate many candidate structures. A sweep can contain hundreds or thousands of small FDTD jobs; launching and advancing each one independently creates avoidable host-dispatch and kernel-launch overhead.' },
       { label: 'THE IMPLEMENTATION', title: 'Batch the repeated work on the GPU', body: 'I built fused CUDA kernels for batches of simulations, captured the repeated timestep sequence with CUDA Graphs, and added batched port-monitor processing. Python bindings and runners support parameter sweeps, field snapshots, ragged grid dimensions, and independent early stopping, so the batching layer can handle simulations that do not all have identical extents or run lengths.' },
-      { label: 'VALIDATION & SPEED', title: 'Measure speed against a numerical reference', body: 'The validation suite compares the fused batch path against the existing per-simulation GPU engine. E-field values match bit-for-bit in the reported parity tests. On a 16-configuration dipole benchmark using an RTX 4050 Laptop GPU, the fused, CUDA-Graph, batched-port configuration reached 15.5 simulations per second; the I time-series reduction had at most 2.2 × 10⁻⁷ relative error.' },
+      { label: 'VALIDATION AND SPEED', title: 'Measure speed against a numerical reference', body: 'The validation suite compares the fused batch path against the existing per-simulation GPU engine. E-field values match bit-for-bit in the reported parity tests. On a 16-configuration dipole benchmark using an RTX 4050 Laptop GPU, the fused, CUDA-Graph, batched-port configuration reached 15.5 simulations per second. The I time-series reduction had at most 2.2e-7 relative error.' },
     ],
     contribution: 'Built the CUDA batch path, runners, Python bindings, and parity/performance checks for batched simulations.',
     outcome: 'The repository reports 15.5 simulations per second in a 16-configuration dipole benchmark on an RTX 4050 Laptop GPU. The fused E-field path matches the per-simulation GPU engine bit-for-bit in its parity tests.',
@@ -57,35 +57,35 @@ const projects = [
     id: 'compute-systems',
     number: '03',
     eyebrow: 'COMPUTATION UNDER CONSTRAINTS',
-    title: 'Can you fit AI—and a large MoE model—within memory limits?',
+    title: 'Edge AI and CXL-backed MoE systems',
     highlightTitle: 'Edge AI + memory systems',
     short: 'Two studies in resource-aware computing: fitting a forecasting pipeline onto an FPGA and testing what CXL expansion enables for MoE serving.',
-    proof: '41% FEWER LUTs · 67% FEWER FFs',
+    proof: '41% FEWER LUTS - 67% FEWER FFS',
     featured: true,
     categories: ['systems', 'hardware', 'machine learning'],
     palette: 'yellow',
     kind: 'compute',
-    curiosity: 'A paired look at what happens when computation runs into a hard resource limit—and how to prove whether a systems change actually helps.',
+    curiosity: 'Two studies of computation under resource constraints: an FPGA forecasting pipeline and CXL memory expansion for large-model serving.',
     details: 'These are separate implementations grouped around one question: how do you make more computation possible when the available resources are not enough? One project maps a forecasting model onto an FPGA with finite logic and memory. The other explores memory placement and request-serving behavior when a large Mixture-of-Experts model exceeds GPU HBM capacity.',
     sections: [
-      { label: 'EDGE AI · FPGA', title: 'A six-horizon power forecaster in RTL', body: 'For the EdgeAI FPGA Hackathon, I worked on a streaming power-forecasting pipeline in SystemVerilog. An engineered-feature path feeds a quantized temporal-convolution model and a tree ensemble, which together produce predictions for six horizons. The challenge was not simply converting model layers to RTL: the design had to fit the target device’s logic, DSP, and on-chip memory budgets.' },
+      { label: 'EDGE AI / FPGA', title: 'A six-horizon power forecaster in RTL', body: 'For the EdgeAI FPGA Hackathon, I worked on a streaming power-forecasting pipeline in SystemVerilog. An engineered-feature path feeds a quantized temporal-convolution model and a tree ensemble, which together produce predictions for six horizons. The design had to fit the target device logic, DSP, and on-chip memory budgets.' },
       { label: 'HARDWARE OPTIMISATION', title: 'Reduce state movement and share compute', body: 'I helped replace costly shift-register and address-generation structures with circular buffers, BRAM-compatible packed storage, and registered base addresses. A 16-lane shared MAC array reuses DSP resources across convolution phases. In Vivado 2019.2 out-of-context synthesis of the TCN backbone on a Zynq-7020, these changes reduced LUT use from 87,430 to 51,506 (41%) and flip-flops from 199,188 to 65,029 (67%). The resulting block uses 28 BRAM36 blocks and 48 DSPs; at 96.8% LUT utilization, area remains a real constraint. These are synthesis results, not measured board throughput.' },
-      { label: 'CXL · MoE SYSTEMS', title: 'First establish feasibility, then test performance', body: 'In Nebula-2, I built repeatable experiments for memory placement and CXL expansion around Qwen3-30B-A3B. In the simulated setup, aggregate model weights totalled 56 GiB while two GPUs provided 48 GiB of HBM, so the HBM-only run could not initialize. A CXL-expanded run placed about 27 GiB per GPU remotely and completed all eight requests. This established capacity feasibility in the simulator—not a real-hardware benchmark.' },
-      { label: 'WHAT THE COMPARISON SHOWED', title: 'More capacity did not mean faster serving', body: 'Against the matched ideal-HBM reference, the simulated CXL run had 27.05× higher mean time-to-first-token and 213.05× higher mean time-per-output-token. It failed the predeclared serving policy. That negative result matters: it separates “the model can run” from “the system serves it well,” and points to latency, staging, and endpoint behavior as the next things to investigate.' },
-      { label: 'WHY THESE BELONG TOGETHER', title: 'Start with the system question; find the limiting resource', body: 'The FPGA work asks how model computation and state fit into a physical device. The CXL study follows memory capacity through to serving latency. In both, I enjoy stepping back to see the whole system, then tracing the bottleneck into the implementation and checking the result against measurements. I’m open to work across systems, hardware, and applied computation.' },
+      { label: 'CXL / MOE SYSTEMS', title: 'Test capacity and serving performance separately', body: 'In Nebula-2, I built repeatable experiments for memory placement and CXL expansion around Qwen3-30B-A3B. In the simulated setup, aggregate model weights totalled 56 GiB while two GPUs provided 48 GiB of HBM, so the HBM-only run could not initialize. A CXL-expanded run placed about 27 GiB per GPU remotely and completed all eight requests. This established capacity feasibility in the simulator, not a real-hardware benchmark.' },
+      { label: 'RESULTS', title: 'More capacity did not mean faster serving', body: 'Against the matched ideal-HBM reference, the simulated CXL run had 27.05x higher mean time-to-first-token and 213.05x higher mean time-per-output-token. It failed the predeclared serving policy. The result separates making a model fit from serving it efficiently, and points to latency, staging, and endpoint behavior as areas to investigate.' },
+      { label: 'SYSTEMS APPROACH', title: 'Identify the limiting resource and measure the result', body: 'The FPGA work looks at how model computation and state fit into a physical device. The CXL study follows memory capacity through to serving latency. In both, I start by looking at how the whole system behaves, then trace bottlenecks into the implementation and test changes against measurements.' },
     ],
     contribution: 'RTL architecture and resource optimisation for edge inference; experiment design, simulator work, and evidence checks for CXL-backed MoE capacity and serving behavior.',
-    outcome: 'A resource-fitting FPGA design and a carefully bounded CXL study that distinguishes “can run” from “runs well.”',
+    outcome: 'A resource-fitting FPGA design and a CXL study that separates making a model fit from serving it efficiently.',
     stack: ['SystemVerilog', 'FPGA synthesis', 'INT8 inference', 'CXL', 'MoE serving', 'Performance analysis'],
-    stats: [{ value: '−41%', label: 'TCN backbone LUTs' }, { value: '−67%', label: 'TCN backbone flip-flops' }, { value: '8 / 8', label: 'simulated CXL requests completed' }, { value: '27× / 213×', label: 'TTFT / TPOT vs ideal-HBM reference' }],
+    stats: [{ value: '-41%', label: 'TCN backbone LUTs' }, { value: '-67%', label: 'TCN backbone flip-flops' }, { value: '8 / 8', label: 'simulated CXL requests completed' }, { value: '27x / 213x', label: 'TTFT / TPOT vs ideal-HBM reference' }],
     link: null,
-    footer: 'Two related studies · source repos currently private',
+    footer: 'Two related studies; source repositories are private.',
   },
   {
     id: 'antenna',
     number: '04',
-    eyebrow: 'A LITTLE ANTENNA PLAYGROUND',
-    title: 'Can gradient descent shape a better antenna array?',
+    eyebrow: 'ANTENNA ARRAY OPTIMISATION',
+    title: 'Gradient-based antenna array optimisation',
     short: 'Use differentiable array-factor models to explore gain, directivity, and beam steering across several array geometries.',
     categories: ['hardware', 'machine learning'],
     palette: 'blue',
@@ -93,21 +93,21 @@ const projects = [
     curiosity: 'A gradient-based approach to optimise gain, beam steering, and efficiency.',
     details: 'This research project explores antenna-array optimisation with differentiable array-factor models. By combining physics-based models with gradient-based optimisation, the project searches for configurations that balance gain, steering performance, and efficiency.',
     sections: [
-      { label: 'THE DESIGN QUESTION', title: 'Can physics make array tuning more direct?', body: 'An array’s element positions and phases shape its radiation pattern. This project studies whether differentiable array-factor models can provide useful gradients for optimising gain, steering, and efficiency, instead of relying only on black-box search.' },
+      { label: 'DESIGN QUESTION', title: 'Differentiable array-factor optimisation', body: 'Array element positions and phases shape its radiation pattern. This project studies whether differentiable array-factor models can provide useful gradients for optimising gain, steering, and efficiency instead of relying only on black-box search.' },
       { label: 'THE EXPERIMENTS', title: 'Compare optimisers across three geometries', body: 'I worked with a spiral array for wireless-power transfer, a hexagonal array for directivity maximisation, and a grid array for beam steering. The project compares gradient-based methods with differential evolution, genetic algorithms, and particle swarm optimisation, using electromagnetic simulations to evaluate candidate designs.' },
       { label: 'INTERACTIVE ILLUSTRATION', title: 'A simple beam-steering model', body: 'The slider below redraws an idealised uniformly spaced eight-element array pattern. It is an explanatory illustration, not a plot of the research results. The repository contains the case-study layouts and their radiation-pattern visualisations.' },
     ],
     contribution: 'Developed a gradient-based optimisation approach using array-factor models and electromagnetic solvers.',
-    outcome: 'The slider below is a small illustrative uniform-array beam pattern—not a plot of the project’s measured results.',
+    outcome: 'The slider below is an illustrative uniform-array beam pattern, not a plot of the project results.',
     stack: ['PyTorch', 'Array-factor models', 'EM solvers', 'Gradient optimisation'],
     stats: [{ value: '3', label: 'array case studies' }, { value: '4', label: 'optimiser families compared' }],
-    link: { label: 'Poke around the code', href: 'https://github.com/ProAltro/Gradient-Based-Antenna-Array-Optimisation' },
+    link: { label: 'View source code', href: 'https://github.com/ProAltro/Gradient-Based-Antenna-Array-Optimisation' },
   },
   {
     id: 'trading',
     number: '05',
-    eyebrow: 'A ONE-SECOND MARKET',
-    title: 'How do you run 200 trading strategies every second?',
+    eyebrow: 'BACKEND SYSTEMS',
+    title: 'Algorithmic trading competition platform',
     short: 'A Go order book and matching engine coordinated concurrent Python strategies on a one-second market clock.',
     categories: ['systems', 'backend'],
     palette: 'yellow',
@@ -128,8 +128,8 @@ const projects = [
   {
     id: 'noc',
     number: '06',
-    eyebrow: 'A NETWORK FOR A GPU PARTY',
-    title: 'How do you connect 64 GPUs without deadlock?',
+    eyebrow: 'HARDWARE DESIGN COMPETITION',
+    title: 'GPU interconnect design competition',
     short: 'A second-place NoC design for the Astera Labs Nebula interconnect competition.',
     categories: ['hardware', 'systems'],
     palette: 'violet',
@@ -151,20 +151,20 @@ const projects = [
     id: 'sat-sim',
     number: '07',
     eyebrow: 'SATELLITE SYSTEMS / TEAM ANANT',
-    title: 'Can a satellite simulator predict power and ground contact?',
-    short: 'Team Anant’s Python sandbox combines orbit propagation, spacecraft components, and mission analyses.',
+    title: 'Team Anant satellite simulation',
+    short: 'A Python sandbox for orbit propagation, spacecraft components, and mission analysis.',
     categories: ['systems', 'hardware'],
     palette: 'blue',
     kind: 'orbit',
     curiosity: 'An orbit-propagation and spacecraft-analysis sandbox built with Team Anant.',
-    details: 'As a member of Team Anant, BITS Pilani’s student satellite club, and a Systems Engineer, I contributed to sat-sim: a simulation sandbox for orbit propagation and spacecraft analysis. My work included refactoring the propagator and simulation structure, solar-power analysis, and telemetry, tracking, and command (TT&C) analysis.',
+    details: 'As a Systems Engineer in Team Anant, BITS Pilani student satellite club, I contributed to sat-sim, a simulation sandbox for orbit propagation and spacecraft analysis. My work included refactoring the propagator and simulation structure, solar-power analysis, and telemetry, tracking, and command (TT&C) analysis.',
     sections: [
       { label: 'THE SIMULATOR', title: 'Propagate more than a point along an orbit', body: 'The Python simulator evolves position, velocity, attitude, and angular velocity. Its dynamics include atmospheric drag, J2 perturbation, solar-radiation pressure, and magnetic torque, letting analyses consider spacecraft motion and environment together.' },
       { label: 'SUBSYSTEM ANALYSIS', title: 'Connect the orbit to mission questions', body: 'Pluggable components represent solar panels, antennas, radios, and magnetorquers. Monitors evaluate generated power and eclipse periods, ground-station contact and link margin, body-axis alignment, and detumbling. Monte Carlo scripts explore how results vary across orbital and attitude conditions.' },
       { label: 'MY CONTRIBUTIONS', title: 'Orbit propagation, power, and TT&C', body: 'As a Team Anant Systems Engineer, I contributed to refactoring the propagator into a more modular simulation structure, solar-power analysis, and TT&C link/contact analysis. I also worked on magnetorquer detumbling features. The code supports the wider systems-engineering work of understanding subsystem behavior and interfaces for a 3U CubeSat mission.' },
       { label: 'MISSION SYSTEMS', title: 'Make subsystem assumptions meet in one design', body: 'My broader satellite systems work includes communications link budgets and modulation schemes, power budgeting, defining OBC state transitions, and Kalman-filter state estimation. I like this part of systems engineering because a change in one subsystem quickly becomes a question for the whole spacecraft.' },
     ],
-    contribution: 'Systems Engineer and contributor to Team Anant’s satellite simulation repository: orbit propagation, modular simulation structure, power analysis, and TT&C analysis.',
+    contribution: 'Systems Engineer and contributor to Team Anant satellite simulation: orbit propagation, modular simulation structure, power analysis, and TT&C analysis.',
     outcome: 'A pluggable sandbox for exploring orbit dynamics, spacecraft subsystems, power, and communications.',
     stack: ['Python', 'Orbit propagation', 'Spacecraft dynamics', 'Monte Carlo analysis', 'TT&C'],
     stats: [{ value: '3U', label: 'CubeSat mission context' }, { value: '6+', label: 'force, torque, and analysis models' }],
@@ -176,45 +176,45 @@ const milestones = [
   {
     id: 'deshaw',
     number: 'SUMMER 2026',
-    eyebrow: 'FIELD NOTES · QUANT SYSTEMS',
+    eyebrow: 'QUANT SYSTEMS',
     title: 'D. E. Shaw',
     highlightTitle: 'D. E. Shaw',
-    highlightNote: 'Summer 2026 · Technology Development Intern',
+    highlightNote: 'Technology Development Intern, Summer 2026',
     proof: 'TECHNOLOGY DEVELOPMENT INTERN',
     palette: 'blue',
-    curiosity: 'A summer spent thinking about how machines find each other on a network.',
-    details: 'On the Quant Systems Development team, I worked on extending service discovery into a network-restricted domain. I evaluated identity, firewall, DNS, proxy-routing, and TLS requirements, and built an eBPF program to connect a VM’s L3 network space to a grid network for userspace testing.',
+    curiosity: 'Network infrastructure work on the Quant Systems Development team.',
+    details: 'I worked on extending service discovery into a network-restricted domain. I evaluated identity, firewall, DNS, proxy-routing, and TLS requirements, then built an eBPF program to connect a virtual machine Layer 3 network to the grid network for userspace testing.',
     contribution: 'Infrastructure research and an eBPF networking tool. Details here stay at the level of my resume; no internal systems or implementation specifics.',
-    outcome: 'Technology Development Intern · Quant Systems Development.',
+    outcome: 'Technology Development Intern on the Quant Systems Development team.',
     stack: ['eBPF', 'Linux networking', 'DNS', 'TLS'],
     link: null,
-    footer: 'A summer internship · June–July 2026',
+    footer: 'June-July 2026',
   },
   {
     id: 'graviton',
-    number: 'UP NEXT',
-    eyebrow: 'A NEW CHAPTER LOADING',
+    number: 'PLACEMENT OFFER',
+    eyebrow: 'GRAVITON RESEARCH CAPITAL',
     title: 'Graviton Research Capital',
     highlightTitle: 'Graviton Research Capital',
     highlightNote: 'Current placement offer',
     proof: 'PLACEMENT OFFER',
     palette: 'yellow',
-    curiosity: 'The next chapter is starting to take shape.',
-    details: 'I’ve received a placement offer from Graviton Research Capital. More to come when I can share the details.',
-    contribution: 'A new direction I’m excited about.',
-    outcome: 'Placement offer · Graviton Research Capital.',
+    curiosity: 'I have received a placement offer from Graviton Research Capital.',
+    details: 'I have received a placement offer from Graviton Research Capital. I will add role details when I am able to share them.',
+    contribution: 'Placement offer.',
+    outcome: 'Graviton Research Capital.',
     stack: [],
     link: null,
-    footer: 'A new chapter loading',
+    footer: 'Details to follow when available.',
   },
 ];
 
 const sideProjects = [
   {
     id: 'micromouse',
-    number: 'ROBOT THINGS',
-    eyebrow: 'A MOUSE THAT SOLVES MAZES',
-    title: 'How does a micromouse sense, steer, and report over BLE?',
+    number: 'EMBEDDED ROBOTICS',
+    eyebrow: 'MICROMOUSE',
+    title: 'Micromouse robot and control tools',
     curiosity: 'A Raspberry Pi Pico W robot with motor feedback, inertial sensing, and a wireless control-and-monitoring link.',
     details: 'This micromouse brings together embedded control and a laptop-facing toolchain. The robot uses motor encoders for motion feedback, an MPU6050 for orientation, and three ultrasonic sensors for nearby obstacles. A BLE client supports monitoring and control while the firmware runs on the Pico W.',
     sections: [
@@ -224,14 +224,14 @@ const sideProjects = [
     contribution: 'MicroPython firmware, sensor and motor drivers, and a Python BLE client.',
     outcome: 'A robot you can drive and inspect from a laptop.',
     stack: ['Raspberry Pi Pico W', 'MicroPython', 'BLE', 'IMU', 'Ultrasonic sensors'],
-    link: { label: 'Meet the mouse', href: 'https://github.com/ProAltro/micromouse' },
-    footer: 'Hardware side quest',
+    link: { label: 'View source code', href: 'https://github.com/ProAltro/micromouse' },
+    footer: 'Raspberry Pi Pico W, MicroPython, and BLE.',
   },
   {
     id: 'huffzip',
-    number: 'BITS & BYTES',
-    eyebrow: 'A SMALL COMPRESSION EXPERIMENT',
-    title: 'Can LZ77 and Huffman coding work better together?',
+    number: 'COMPRESSION',
+    eyebrow: 'HUFFZIP',
+    title: 'File compression with LZ77 and Huffman coding',
     curiosity: 'A C++ compressor that combines repeated-string references with frequency-based bit coding.',
     details: 'Huffzip is a compressor and decompressor built to make the mechanics of coding schemes concrete. An optional LZ77 pass replaces repeated sequences with references; Huffman coding then assigns shorter bit codes to frequent symbols. A Huffman-only mode makes the two-stage pipeline easy to compare.',
     sections: [
@@ -241,49 +241,49 @@ const sideProjects = [
     contribution: 'Implemented the compression/decompression pipeline and coding analysis.',
     outcome: 'A working encode/decode path with integrity checking and a format that exposes the compression metadata.',
     stack: ['C++', 'Huffman coding', 'LZ77', 'CRC-32'],
-    link: { label: 'Open huffzip', href: 'https://github.com/ProAltro/huffzip' },
-    footer: 'A compression rabbit hole',
+    link: { label: 'View source code', href: 'https://github.com/ProAltro/huffzip' },
+    footer: 'C++ compression and decompression utility.',
   },
   {
     id: 'audio-watermark',
     number: 'DSP PROJECT',
-    eyebrow: 'DIGITAL SIGNAL PROCESSING · ECE F434',
-    title: 'Can you hide an image in audio—and recover it after attacks?',
+    eyebrow: 'DIGITAL SIGNAL PROCESSING / ECE F434',
+    title: 'Audio watermarking with wavelets and DTMT',
     curiosity: 'A team project in audio watermarking, combining wavelets, Tchebichef moments, and chaotic encryption.',
     details: 'We implemented and evaluated an image-in-audio watermarking method. A binary image watermark is encrypted with a modified localized nonlinear chaotic map lattice (MLNCML), embedded into low-frequency audio coefficients using a three-level Haar wavelet transform and Discrete Tchebichef Moment Transform, then recovered by reversing those steps.',
     sections: [
       { label: 'THE SIGNAL PATH', title: 'Encode the image into low-frequency audio structure', body: 'The system encrypts the binary watermark with an MLNCML-generated key stream, divides the audio into 256 segments, and applies a three-level Haar DWT. It embeds watermark bits in the low-frequency A3 subband by modifying the relative norms of even and odd DTMT coefficients. Extraction compares those norms and decrypts the recovered bit sequence.' },
       { label: 'MY CONTRIBUTION', title: 'Refactor the pipeline and make each stage testable', body: 'I contributed a major refactor of the Python implementation: separating embedding and extraction, reorganising the DWT/DTMT and chaotic-map modules, moving file handling into utilities, and adding unit tests for the transforms, encryption, and extractor. I also revised the extraction path and helped organise the attack outputs and evaluation workflow.' },
-      { label: 'ROBUSTNESS RESULTS', title: 'Measure both watermark recovery and audio quality', body: 'On the tested track, the no-attack baseline recovered the watermark exactly (BER 0, normalized correlation 1.000). Correlation remained 0.993 after 20 dB Gaussian noise and 0.998 after 128 kbps MP3 compression. The study also found clear limits: correlation fell to 0.002 after ±20% time scaling and 0.035 after simulated re-recording. The report measured audio-quality metrics as well as watermark similarity, rather than treating every extraction failure in isolation.' },
+      { label: 'ROBUSTNESS RESULTS', title: 'Measure both watermark recovery and audio quality', body: 'On the tested track, the no-attack baseline recovered the watermark exactly (BER 0, normalized correlation 1.000). Correlation remained 0.993 after 20 dB Gaussian noise and 0.998 after 128 kbps MP3 compression. The study also found clear limits: correlation fell to 0.002 after plus or minus 20% time scaling and 0.035 after simulated re-recording. The report measured audio-quality metrics as well as watermark similarity, rather than treating every extraction failure in isolation.' },
     ],
     contribution: 'Collaborated on the DSP implementation and evaluation; authored a substantial modular refactor and tests across the embedding, extraction, and transform code.',
     outcome: 'A reproducible implementation and attack-by-attack robustness study that identifies both resilient conditions and failure modes.',
     stack: ['Python', 'Haar DWT', 'DTMT', 'Chaotic encryption', 'Audio analysis'],
     link: { label: 'Explore the DSP project', href: 'https://github.com/Meghadri25/dsp-project' },
-    footer: 'Team course project · audio watermarking',
+    footer: 'Team course project: audio watermarking.',
   },
   {
     id: 'postman-auth',
     number: 'CLUB TOOLING',
-    eyebrow: 'RECRUITMENT PLATFORM · POSTMAN',
-    title: 'How does a club recruitment portal handle sign-in?',
+    eyebrow: 'RECRUITMENT PLATFORM / POSTMAN',
+    title: 'Authentication service for the Postman recruitment portal',
     curiosity: 'An authentication microservice for the BITS Postman recruitment platform.',
     details: 'I built part of the authentication service for the Postman club recruitment platform. It is a Go microservice using Gin and SQLC, with Google OAuth-backed sessions and separate authentication paths for applicants and club heads.',
     sections: [
       { label: 'THE SERVICE', title: 'Authentication as a separate platform service', body: 'The service provides the login boundary for the recruitment platform rather than embedding authentication in every feature. It is written in Go with Gin for HTTP handling and SQLC for database access.' },
-      { label: 'LOGIN & SESSION FLOW', title: 'Support OAuth sessions and club roles', body: 'I added Google OAuth session support, session-token verification, logout, and club-head login. These flows let the rest of the platform validate a user session and distinguish the portal’s administrative users.' },
+      { label: 'LOGIN AND SESSION FLOW', title: 'Support OAuth sessions and club roles', body: 'I added Google OAuth session support, session-token verification, logout, and club-head login. These flows let the rest of the platform validate a user session and distinguish the portal administrative users.' },
     ],
     contribution: 'Implemented authentication service foundations and session-related flows for the recruitment platform.',
     outcome: 'A Go-based auth service supporting OAuth sessions, token verification, logout, and club-head access.',
     stack: ['Go', 'Gin', 'SQLC', 'Google OAuth', 'Sessions'],
     link: null,
-    footer: 'BITS Postman recruitment platform · source repo private',
+    footer: 'BITS Postman recruitment platform; source repository is private.',
   },
   {
     id: 'anant-website',
     number: 'CLUB TOOLING',
-    eyebrow: 'TEAM ANANT · WEB',
-    title: 'How do you make a satellite team’s work explorable?',
+    eyebrow: 'TEAM ANANT / WEB',
+    title: 'Team Anant website',
     curiosity: 'A Next.js website for Team Anant, with subsystem pages, interactive details, and recruitment information.',
     details: 'I built and extended the Team Anant website to help explain the student satellite team and its work. The site brings subsystem information, team and publication pages, and recruitment content into one place, with interaction and motion used to make the technical material easier to explore.',
     sections: [
@@ -291,33 +291,33 @@ const sideProjects = [
       { label: 'INTERACTION & PRESENTATION', title: 'Add movement without losing the content', body: 'I added interactive behavior and visual effects to the Next.js site, including motion-driven components and page transitions. The goal was to make a technical student-team website feel inviting while still helping visitors find concrete subsystem information.' },
     ],
     contribution: 'Next.js site development, subsystem content updates, interactive components, and recruitment-page work.',
-    outcome: 'A public-facing home for Team Anant’s satellite work and recruitment.',
+    outcome: 'A public website for Team Anant projects and recruitment.',
     stack: ['Next.js', 'TypeScript', 'React', 'Web interaction'],
     link: { label: 'Visit the Team Anant website', href: 'https://anant-website-silk.vercel.app' },
-    footer: 'Team Anant · BITS Pilani',
+    footer: 'Team Anant, BITS Pilani.',
   },
   {
     id: 'anant-erp',
     number: 'CLUB TOOLING',
-    eyebrow: 'TEAM ANANT · OPERATIONS',
-    title: 'What does a satellite club need from its own ERP?',
+    eyebrow: 'TEAM ANANT / OPERATIONS',
+    title: 'Team Anant operations portal',
     curiosity: 'An internal portal for projects, inventory, financial approvals, and team administration.',
-    details: 'I contributed to Team Anant’s internal management portal: a small ERP-style application for the operational work around a student satellite team. It brings project tracking, inventory, pre-approvals and reimbursements, and user administration into one authenticated application.',
+    details: 'I contributed to Team Anant internal management portal: an ERP-style application for the operational work around a student satellite team. It brings project tracking, inventory, pre-approvals and reimbursements, and user administration into one authenticated application.',
     sections: [
       { label: 'THE WORKFLOW', title: 'Support the work around the engineering', body: 'The portal includes project pages and status, inventory, finance summaries, pre-approval and reimbursement workflows, and user profiles. These processes help the club coordinate resources and keep operational information in one place.' },
       { label: 'MY CONTRIBUTIONS', title: 'Improve login and role administration', body: 'I contributed to the initial application and later worked on the login experience, systems-role assignment, and user removal and administration. The codebase uses Python and Flask with an authenticated portal and role-aware user management.' },
     ],
     contribution: 'Built and extended parts of the portal, including login, role assignment, and user administration.',
-    outcome: 'A shared internal tool for Team Anant’s project, inventory, finance, and people workflows.',
+    outcome: 'A shared internal tool for Team Anant project, inventory, finance, and people workflows.',
     stack: ['Python', 'Flask', 'SQL', 'Authentication', 'Operations tooling'],
     link: null,
-    footer: 'Team Anant internal tool · source repo private',
+    footer: 'Team Anant internal tool; source repository is private.',
   },
   {
     id: 'qff-website',
     number: 'EVENT WEB',
-    eyebrow: 'QISKIT FALL FEST · BITS PILANI',
-    title: 'Can an event website make a whole festival easy to explore?',
+    eyebrow: 'QISKIT FALL FEST / BITS PILANI',
+    title: 'Qiskit Fall Fest 2026 website',
     curiosity: 'An interactive website for the BITS Pilani Qiskit Fall Fest 2026 edition.',
     details: 'I built the event website around the official Qiskit Fall Fest 2026 organiser kit and programme. Alongside the visual identity and schedule, the site uses an interactive flocking animation to express the event theme and lets visitors move directly between programme sections.',
     sections: [
@@ -328,16 +328,8 @@ const sideProjects = [
     outcome: 'A live event site that is both a visual introduction and a practical guide to the festival programme.',
     stack: ['React', 'JavaScript', 'Canvas', 'Responsive design', 'Accessibility'],
     link: { label: 'Visit the Qiskit Fall Fest website', href: 'https://qff-website-pi.vercel.app' },
-    footer: 'BITS Pilani · 8 days · 16 sessions · 27 taught hours',
+    footer: 'BITS Pilani / 8 days / 16 sessions / 27 taught hours',
   },
-];
-
-const thoughts = [
-  'Currently wondering if satellites get lonely.',
-  'A good bug is just a very specific question.',
-  'Today’s soundtrack: fans spinning up at 100%.',
-  'Somewhere, a packet is taking the scenic route.',
-  'I like my abstractions leaky enough to learn from.',
 ];
 
 function AntennaPattern({ steering }) {
@@ -365,7 +357,7 @@ function AntennaPattern({ steering }) {
       <path class="beam-fill" d={`${path} L382 146 L18 146 Z`} />
       <path class="beam-line" d={path} />
       <path class="plot-axis" d="M18 146H382" />
-      <text x="18" y="163">−90°</text><text x="187" y="163">0°</text><text x="355" y="163">+90°</text>
+      <text x="18" y="163">-90 deg</text><text x="187" y="163">0 deg</text><text x="355" y="163">+90 deg</text>
     </svg>
   );
 }
@@ -395,7 +387,7 @@ function ProjectDrawing({ kind }) {
         <path d="M119 85h62M150 54v62" stroke="#3549d4" stroke-width="1.5" opacity=".65" />
         <circle cx="230" cy="42" r="7" fill="#f06943" stroke="#20203a" stroke-width="2" />
         <path d="M222 42h-10m36 0h-10m-8-8v-9m0 34v-9" stroke="#20203a" stroke-width="2" />
-        <text x="109" y="137">ORBIT · POWER · TT&amp;C</text>
+        <text x="109" y="137">ORBIT / POWER / TT&amp;C</text>
       </svg>
     );
   }
@@ -459,7 +451,7 @@ function ProjectCard({ project, onOpen }) {
   return (
     <button class={`project-card ${project.palette} ${project.featured ? 'featured' : ''}`} type="button" onClick={() => onOpen(project)} aria-label={`Explore ${project.title}`}>
       <span class="card-art"><span class="card-art-note">{project.eyebrow}</span><ProjectDrawing kind={project.kind} /><span class="card-number">{project.number}</span></span>
-      <span class="card-copy">{project.proof && <span class="card-proof">{project.proof}</span>}<span class="card-title">{project.title}</span><span class="card-short">{project.short}</span><span class="card-action">VIEW PROJECT DETAILS <span aria-hidden="true">↗</span></span></span>
+      <span class="card-copy">{project.proof && <span class="card-proof">{project.proof}</span>}<span class="card-title">{project.title}</span><span class="card-short">{project.short}</span><span class="card-action">View project details</span></span>
     </button>
   );
 }
@@ -478,7 +470,7 @@ function ProjectDialog({ project, onClose }) {
       if (event.target === event.currentTarget) event.currentTarget.close();
     }}>
       {project && <>
-          <div class="dialog-chrome"><span>PROJECT DETAILS <span class="drawer-light">●</span></span><button class="close-button" type="button" onClick={() => dialogRef.current.close()}>close <span aria-hidden="true">×</span></button></div>
+          <div class="dialog-chrome"><span>PROJECT DETAILS</span><button class="close-button" type="button" onClick={() => dialogRef.current.close()}>Close</button></div>
         <div class="dialog-inner">
           <p class="dialog-eyebrow">{project.number} / {project.eyebrow}</p>
           <h2 id="dialog-title">{project.title}</h2>
@@ -491,7 +483,7 @@ function ProjectDialog({ project, onClose }) {
           </div>
           {project.kind === 'antenna' && <BeamSandbox />}
           {project.stack.length > 0 && <div class="stack-list" aria-label="Tools and ideas used">{project.stack.map((item) => <span key={item}>{item}</span>)}</div>}
-          <div class="dialog-footer">{project.link ? <a href={project.link.href} target="_blank" rel="noreferrer">{project.link.label} ↗</a> : <span>{project.footer}</span>}{project.footer && project.link && <span>{project.footer}</span>}<button type="button" onClick={onClose}>close project details</button></div>
+          <div class="dialog-footer">{project.link ? <a href={project.link.href} target="_blank" rel="noreferrer">{project.link.label}</a> : <span>{project.footer}</span>}{project.footer && project.link && <span>{project.footer}</span>}<button type="button" onClick={onClose}>Close project details</button></div>
         </div>
       </>}
     </dialog>
@@ -502,74 +494,80 @@ function BeamSandbox() {
   const [steering, setSteering] = useState(24);
   return (
     <section class="beam-sandbox" aria-label="Interactive antenna beam illustration">
-      <div class="sandbox-heading"><span>BEAM BENDER 3000</span><span>TOY MODEL · 8 ELEMENTS</span></div>
+      <div class="sandbox-heading"><span>ARRAY FACTOR MODEL</span><span>8 ELEMENTS</span></div>
       <AntennaPattern steering={steering} />
-      <label class="steering-control">Nudge the beam <strong>{steering}°</strong><input type="range" min="-60" max="60" value={steering} onInput={(event) => setSteering(Number(event.currentTarget.value))} /></label>
-      <p>Drag the slider. The lobe follows: a tiny, idealised uniform-array pattern for curious poking.</p>
+      <label class="steering-control">Beam angle <strong>{steering} deg</strong><input type="range" min="-60" max="60" value={steering} onInput={(event) => setSteering(Number(event.currentTarget.value))} /></label>
+      <p>This is an idealised uniform-array pattern for illustration, not a result from the antenna optimisation project.</p>
     </section>
   );
 }
 
 function App() {
   const [selectedProject, setSelectedProject] = useState(null);
-  const [thoughtIndex, setThoughtIndex] = useState(0);
-  const [packetSent, setPacketSent] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = window.localStorage.getItem('site-theme');
+    return savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  });
   const highlights = [projects[0], ...milestones];
 
-  const sendPacket = () => {
-    setPacketSent(true);
-    window.setTimeout(() => setPacketSent(false), 1600);
-  };
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    window.localStorage.setItem('site-theme', theme);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#101820' : '#f5f6f7');
+  }, [theme]);
 
   return (
     <main class="site-shell">
       <header class="topbar">
-        <a class="wordmark" href="#home" aria-label="Pramit's homepage">pramit's nook<span class="wordmark-star">✳</span></a>
-        <nav aria-label="Main navigation"><a href="#things">things i made</a><a href="#tiny-about">a bit about me</a><a href="/files/cv.pdf" target="_blank" rel="noreferrer">view CV ↗</a></nav>
-        <a class="hello-link" href="/files/cv.pdf" download="Pramit-Pal-CV.pdf">download CV <span aria-hidden="true">↓</span></a>
+        <a class="wordmark" href="#home" aria-label="Pramit Pal home">Pramit Pal</a>
+        <nav aria-label="Main navigation"><a href="#things">Projects</a><a href="#tiny-about">About</a><a href="/files/cv.pdf" target="_blank" rel="noreferrer">CV</a></nav>
+        <button class="theme-toggle" type="button" aria-pressed={theme === 'dark'} onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>{theme === 'dark' ? 'Light mode' : 'Dark mode'}</button>
       </header>
 
       <section class="welcome" id="home">
         <div class="welcome-copy">
-          <p class="hand-note"><span>hello from the internet</span><span aria-hidden="true">✳</span></p>
-          <h1>Hi, I’m Pramit.<br />I make computers<br /><span>talk to each other.</span></h1>
-          <p class="welcome-blurb">ECE student at BITS Pilani. I like taking the wide-angle view, then using computation to make something happen.</p>
-          <button class="thought-button" type="button" onClick={() => setThoughtIndex((thoughtIndex + 1) % thoughts.length)}><span class="thought-spark">✳</span><span>{thoughts[thoughtIndex]}</span><span class="shuffle">another thought ↻</span></button>
+          <p class="hand-note">PRAMIT PAL / BITS PILANI</p>
+          <h1>ECE at BITS Pilani.</h1>
+          <p class="welcome-blurb">I am interested in systems engineering, computation, and how to make complex projects work within real constraints. My work spans software, hardware, and satellite engineering.</p>
+          <a class="hero-link" href="#things">Selected projects</a>
         </div>
-        <figure class="hero-illustration"><img src="/images/antenna-array-pattern.webp" alt="Radiation-pattern heatmap from my antenna-array beam-steering case study, with the target direction marked" /><figcaption><a href="https://github.com/ProAltro/Gradient-Based-Antenna-Array-Optimisation/blob/main/results/case_study_3_grid_beamsteering/pattern_2d_heatmap.png" target="_blank" rel="noreferrer">a real beam-steering plot from my repo ↗</a><span>✳</span></figcaption></figure>
-        <span class="margin-doodle doodle-one" aria-hidden="true">bzzzt!</span><span class="margin-doodle doodle-two" aria-hidden="true">✳</span>
+        <figure class="hero-illustration"><img src="/images/antenna-array-pattern.webp" alt="Radiation-pattern heatmap from an antenna-array beam-steering case study" /><figcaption><a href="https://github.com/ProAltro/Gradient-Based-Antenna-Array-Optimisation/blob/main/results/case_study_3_grid_beamsteering/pattern_2d_heatmap.png" target="_blank" rel="noreferrer">A beam-steering result from my antenna-array project</a></figcaption></figure>
       </section>
 
       <section class="highlights" aria-labelledby="highlights-title">
-        <div class="highlights-heading"><p class="hand-note">first, the useful context</p><h2 id="highlights-title">Recent plot twists</h2></div>
+        <div class="highlights-heading"><p class="hand-note">SELECTED EXPERIENCE</p><h2 id="highlights-title">Recent work</h2></div>
         <div class="highlight-grid">{highlights.map((item, index) => <button class={`highlight-card highlight-${index} ${item.palette}`} key={item.id} type="button" onClick={() => setSelectedProject(item)}>
-          <span class="highlight-proof">{item.proof}</span><strong>{item.highlightTitle}</strong><span class="highlight-note">{item.highlightNote}</span><span class="highlight-more">a little more ↗</span>
+          <span class="highlight-proof">{item.proof}</span><strong>{item.highlightTitle}</strong><span class="highlight-note">{item.highlightNote}</span><span class="highlight-more">Read details</span>
         </button>)}</div>
       </section>
 
       <section class="campus-context" aria-labelledby="campus-title">
-        <div class="campus-intro"><p class="hand-note">the person behind the projects</p><h2 id="campus-title">Me, in college</h2><p>I’m drawn to broad, tangled questions—and to figuring out where computation can make a difference. At BITS, that curiosity has taken me from satellite systems to AI/ML, with plenty of organising, debating, and tinkering along the way. I’m curious by default, open to work, and always ready to explore the next interesting problem.</p></div>
+        <div class="campus-intro"><p class="hand-note">BACKGROUND</p><h2 id="campus-title">My work at BITS</h2><p>I study Electronics and Communication Engineering at BITS Pilani. I like thinking about systems: how the parts interact, what constraints they create, and how to make the whole project work. At BITS, I have applied that approach to satellite engineering, AI/ML, and software projects, while also taking part in campus clubs.</p></div>
         <div class="campus-cards">
-          <article class="campus-card campus-anant"><span>01 · BUILDING SYSTEMS</span><h3>Team Anant</h3><p>Systems Engineer in the student satellite club, thinking across subsystem boundaries and contributing to our satellite simulation work.</p></article>
-          <article class="campus-card campus-ieee"><span>02 · COMPUTATION</span><h3>IEEE BITS Pilani</h3><p>Part of the AI/ML vertical. I’m interested in computation not just as a tool, but as a way to reason about—and move forward—larger problems.</p></article>
-          <article class="campus-card campus-ideas"><span>03 · PEOPLE & IDEAS</span><h3>Debate, film & literature</h3><p>The Debating Society and Matrix, the Film and Literature Club, keep me around good arguments, stories, and people who see things differently.</p></article>
+          <article class="campus-card campus-anant"><span>01 / SATELLITE SYSTEMS</span><h3>Team Anant</h3><p>I am a Systems Engineer in the student satellite club. My work includes subsystem interfaces, communications and power budgets, OBC state transitions, and state estimation.</p></article>
+          <article class="campus-card campus-ieee"><span>02 / COMPUTATION</span><h3>IEEE AI/ML</h3><p>I am part of the AI/ML vertical. I am interested in using computation to understand larger problems and build practical solutions.</p></article>
+          <article class="campus-card campus-ideas"><span>03 / CAMPUS CLUBS</span><h3>Debating and literature</h3><p>I have also been involved with the Debating Society and the Film and Literature Club, including coordinating events for Matrix.</p></article>
         </div>
-        <a class="campus-next" href="#things">Now, come explore what I’ve been making <span aria-hidden="true">↓</span></a>
+        <a class="campus-next" href="#things">Selected projects</a>
       </section>
 
       <section class="things-section" id="things">
-        <div class="section-heading"><div><p class="hand-note">the stuff i've been poking at</p><h2>Big questions, small machines</h2></div><p class="poke-hint">The first two got especially out of hand. Click for the full story.</p></div>
+        <div class="section-heading"><div><p class="hand-note">PROJECTS</p><h2 id="things-title">Selected engineering work</h2></div><p class="poke-hint">Open a project for the problem, implementation, and results.</p></div>
         <div class="project-grid">{projects.map((project) => <ProjectCard key={project.id} project={project} onOpen={setSelectedProject} />)}</div>
-        <div class="sidequests"><div class="sidequests-heading"><p class="hand-note">little systems for clubs, events & everything else</p><h3>Side quests</h3></div><div class="sidequest-grid">{sideProjects.map((project) => <button class="sidequest-card" key={project.id} type="button" onClick={() => setSelectedProject(project)}><span>{project.number}</span><strong>{project.title}</strong><small>{project.curiosity}</small><span class="sidequest-more">view project details ↗</span></button>)}</div></div>
+        <div class="sidequests"><div class="sidequests-heading"><p class="hand-note">ADDITIONAL PROJECTS</p><h3>Other engineering work</h3></div><div class="sidequest-grid">{sideProjects.map((project) => <button class="sidequest-card" key={project.id} type="button" onClick={() => setSelectedProject(project)}><span>{project.number}</span><strong>{project.title}</strong><small>{project.curiosity}</small><span class="sidequest-more">View project details</span></button>)}</div></div>
       </section>
 
-      <section class="tiny-about" id="tiny-about">
-        <div class="about-note"><span class="note-pin">✳</span><p class="hand-note">field notes</p><h2>Mostly curious.<br />Occasionally caffeinated.</h2><p>I study Electronics and Communication Engineering at BITS Pilani. I like following a question until it turns into a circuit, a system, or a few thousand lines of code.</p><p>My default mode in a group: organise the big picture, then tinker with the pieces until they work together.</p><div class="interests-stack"><div><span>OFF THE CLOCK</span><p>Tennis, sci-fi, and classics.</p></div><div><span>ON MY SHELF</span><p><em>Foundation</em> · <em>The Three-Body Problem</em> · the classics shelf is always growing.</p></div><div><span>THE KIND OF PROBLEM I LIKE</span><p>System design with a wide-angle view—and computation that gets a real outcome over the line.</p></div><div><span>BEYOND ECE</span><p>Physics and mathematics keep me curious too: relativity, quantum computing, group theory, topology, and cryptography.</p></div></div></div>
-        <div class="packet-toy"><p class="hand-note">a very tiny network</p><p>Can you send a packet across without getting lost?</p><div class={`toy-network ${packetSent ? 'packet-moving' : ''}`} aria-label="Interactive network with four nodes"><span class="toy-node node-a">start</span><span class="toy-node node-b">beep</span><span class="toy-node node-c">boop</span><span class="toy-node node-d">end</span><svg viewBox="0 0 300 120" aria-hidden="true"><path d="M32 62H110V27H190V82H268" /></svg><span class="toy-packet"></span></div><button class="packet-button" type="button" onClick={sendPacket} disabled={packetSent}>{packetSent ? 'packet delivered ✓' : 'send a packet →'}</button><p class="toy-caption">A tiny nod to my satellite-team systems-engineering days.</p></div>
+      <section class="coursework-section" aria-labelledby="coursework-title">
+        <div class="coursework-heading"><p class="hand-note">COURSEWORK</p><h2 id="coursework-title">Courses beyond my degree</h2><p>I chose these courses because I wanted to study more about computation, physics, and mathematics.</p></div>
+        <ul class="course-list"><li>Deep Learning</li><li>Quantum Informatics and Computing</li><li>Special Relativity</li><li>Group Theory</li><li>Topology</li><li>Cryptography</li></ul>
       </section>
 
-      <section class="elsewhere"><span>WHEN I’M NOT DEBUGGING WAVES</span><div><a href="https://github.com/ProAltro">my github ↗</a><a href="https://www.linkedin.com/in/pramit-p-8404a4264/">professional internet ↗</a><a href="mailto:pramit.pal2005@gmail.com">email-shaped hole ↗</a><a href="/files/cv.pdf" target="_blank" rel="noreferrer">view CV ↗</a><a href="/files/cv.pdf" download="Pramit-Pal-CV.pdf">download PDF ↓</a></div></section>
-      <footer><span>made with curiosity (and probably too much coffee)</span><span>© PRAMIT PAL · 2026</span></footer>
+      <section class="tiny-about" id="tiny-about" aria-labelledby="about-title">
+        <div class="about-copy"><p class="hand-note">ABOUT</p><h2 id="about-title">How I approach a project</h2><p>I am interested in systems engineering and computation. I like understanding how components interact, what constraints they impose, and what changes will make a project work as a whole.</p><p>Outside engineering, I read science fiction and classics and play tennis. Some favourites are <em>Foundation</em> and <em>The Three-Body Problem</em>.</p></div>
+      </section>
+
+      <section class="elsewhere" aria-label="Contact and profile links"><a href="https://github.com/ProAltro" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.linkedin.com/in/pramit-p-8404a4264/" target="_blank" rel="noreferrer">LinkedIn</a><a href="mailto:pramit.pal2005@gmail.com">Email</a><a href="/files/cv.pdf" target="_blank" rel="noreferrer">View CV</a><a href="/files/cv.pdf" download="Pramit-Pal-CV.pdf">Download CV</a></section>
+      <footer><span>Pramit Pal</span><span>2026</span></footer>
       <ProjectDialog project={selectedProject} onClose={() => setSelectedProject(null)} />
     </main>
   );
