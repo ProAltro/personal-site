@@ -607,8 +607,8 @@ function App() {
       <section class="welcome" id="home">
         <div class="welcome-copy">
           <p class="hand-note">PRAMIT PAL / BITS PILANI</p>
-          <h1>ECE at BITS Pilani.</h1>
-          <p class="welcome-blurb">I am interested in systems engineering, computation, and how to make complex projects work within real constraints. My work spans software, hardware, and satellite engineering.</p>
+          <h1>I like thinking about systems.</h1>
+          <p class="welcome-blurb">I use computation to make complex projects work across software, hardware, and satellite engineering.</p>
           <a class="hero-link" href="#things">Selected projects</a>
         </div>
         <figure class="hero-illustration"><img src="/images/antenna-array-pattern.webp" alt="Radiation-pattern heatmap from an antenna-array beam-steering case study" /><figcaption><a href="https://github.com/ProAltro/Gradient-Based-Antenna-Array-Optimisation/blob/main/results/case_study_3_grid_beamsteering/pattern_2d_heatmap.png" target="_blank" rel="noreferrer">A beam-steering result from my antenna-array project</a></figcaption></figure>
