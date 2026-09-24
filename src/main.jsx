@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { render } from 'preact';
+import { inject } from '@vercel/analytics';
 import '../styles.css';
 
 const projects = [
@@ -653,4 +654,5 @@ function App() {
   );
 }
 
+inject();
 render(<App />, document.getElementById('app'));
